@@ -118,4 +118,52 @@ export default class LinkedList {
 
     return result + "null";
   }
+
+  insertAt(value, index) {
+    if (index < 0 || index >= this.listSize) return;
+
+    const newNode = new Node(value);
+
+    if (index === 0) {
+      newNode.nextNode = this.headNode;
+      this.headNode = newNode;
+    } else {
+      let currIndex = 0;
+      let current = this.headNode;
+      let previous;
+
+      while (currIndex < index) {
+        previous = current;
+        current = current.nextNode;
+        currIndex++;
+      }
+
+      newNode.nextNode = current;
+      previous.nextNode = newNode;
+    }
+
+    this.listSize++;
+  }
+
+  removeAt(index) {
+    if (index < 0 || index >= this.listSize) return;
+
+    let currIndex = 0;
+    let current = this.headNode;
+    let previous;
+
+    if (index === 0) {
+      this.headNode = current.nextNode;
+    } else {
+      while (currIndex < index) {
+        previous = current;
+        current = current.nextNode;
+        currIndex++;
+      }
+
+      previous.nextNode = current.nextNode;
+    }
+
+    this.listSize--;
+  }
 }
